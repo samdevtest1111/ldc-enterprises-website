@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// 1. Import the Navbar component here
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,12 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col font-sans text-slate-900`}
       >
-        {/* 2. Place the Navbar here so it shows on every page */}
         <Navbar />
-        {children}
-        {/* Footer will go here later */}
+        {/* flex-grow ensures the footer stays at the bottom on short pages */}
+        <main className="grow">{children}</main>
+        <Footer />
       </body>
     </html>
   );
