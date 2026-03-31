@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+// 1. Import the Navbar component here
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
   description:
     "High-performance industrial steam generation and garment machinery solutions.",
   icons: {
-    icon: "/favicon.ico", // Ensure you add a favicon later for a pro look
+    icon: "/favicon.ico",
   },
 };
 
@@ -31,9 +33,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col font-sans`}
       >
-        {/* Navbar will be imported here next */}
+        {/* 2. Place the Navbar here so it shows on every page */}
+        <Navbar />
         {children}
-        {/* Footer will go here */}
+        {/* Footer will go here later */}
       </body>
     </html>
   );
