@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { products } from "@/data/products";
 
 export default function Home() {
   return (
@@ -29,7 +30,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* 2. PRODUCT PREVIEW */}
+      {/* 2. PRODUCT PREVIEW - CLEAN & FUNCTIONAL */}
       <section className="py-20 px-6 max-w-7xl mx-auto">
         <div className="flex justify-between items-end mb-12">
           <div>
@@ -47,16 +48,17 @@ export default function Home() {
             View All Catalog &rarr;
           </Link>
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-slate-400">
-          <div className="aspect-video bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center">
-            Steam Boilers
-          </div>
-          <div className="aspect-video bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center">
-            Ironing Stations
-          </div>
-          <div className="aspect-video bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center">
-            Vacuum Tables
-          </div>
+          {products.slice(0, 3).map((product) => (
+            <Link
+              key={product.id}
+              href={`/machinery/${product.id}`}
+              className="aspect-video bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center hover:bg-slate-200 transition-colors cursor-pointer text-slate-600 font-medium"
+            >
+              {product.name}
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -66,7 +68,7 @@ export default function Home() {
         className="py-32 px-6 bg-white scroll-mt-20 border-y border-slate-50"
       >
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="aspect-square bg-slate-100 rounded-3xl flex items-center justify-center text-slate-400 italic">
+          <div className="aspect-square bg-slate-100 rounded-3xl flex items-center justify-center text-slate-400 italic border border-slate-200">
             [ Placeholder: Factory or Machinery Photo ]
           </div>
           <div>
