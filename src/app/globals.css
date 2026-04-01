@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* 1. Add this to enable smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
   /* Your Professional Brand Palette */
   --color-brand-purple: #9f99d1;
@@ -16,7 +21,6 @@
 body {
   background: white;
   color: #171717;
-  /* Clean Sans-Serif for Industrial vibe */
   font-family:
     ui-sans-serif,
     system-ui,
