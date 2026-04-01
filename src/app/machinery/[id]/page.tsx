@@ -1,139 +1,136 @@
 import { products } from "@/data/products";
 import Link from "next/link";
+import Image from "next/image";
+import { ArrowLeft, FileText } from "lucide-react";
 
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const product = products.find((p) => p.id === params.id) || products[0];
+  const { id } = await params;
+
+  const product = products.find((p) => p.id === id) || products[0];
+
+  const whatsappNumber = "YOUR_PHONE_NUMBER";
+  const whatsappMsg = encodeURIComponent(
+    `Hello, I want to know more about the ${product.name} (ID: ${product.id}).`,
+  );
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* BREADCRUMBS */}
-        <nav className="mb-6 flex gap-2 text-[11px] font-medium text-slate-500">
-          <Link href="/" className="hover:underline">
-            Home
-          </Link>
-          <span>›</span>
-          <Link href="/machinery" className="hover:underline">
-            Machinery
-          </Link>
-          <span>›</span>
-          <span className="text-slate-900 truncate">{product.name}</span>
-        </nav>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* BACK LINK */}
+        <Link
+          href="/machinery"
+          className="group mb-10 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-red-600 transition-colors"
+        >
+          <ArrowLeft className="w-3 h-3 transition-transform group-hover:-translate-x-1" />
+          Back to List
+        </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* LEFT: IMAGE GALLERY */}
-          <div className="lg:col-span-7 xl:col-span-8">
-            <div className="sticky top-8 space-y-4">
-              {/* Main Product Image */}
-              <div className="aspect-square bg-white rounded-lg border border-slate-200 flex items-center justify-center overflow-hidden">
-                <img
-                  src="/placeholder-main.jpg"
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          {/* LEFT: PHOTO ONLY */}
+          <div className="lg:col-span-6">
+            <div className="sticky top-24">
+              <div className="relative aspect-square bg-slate-50 rounded-[2.5rem] border border-slate-100 flex items-center justify-center overflow-hidden shadow-sm">
+                <Image
+                  src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-contain p-4 hover:scale-105 transition-transform duration-500"
+                  fill
+                  priority
+                  className="object-contain p-12 hover:scale-105 transition-transform duration-700 mix-blend-multiply"
                 />
-              </div>
-
-              {/* Thumbnail Grid */}
-              <div className="flex gap-3 overflow-x-auto pb-2">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <button
-                    key={i}
-                    className="flex-shrink-0 w-20 h-20 bg-white rounded-md border border-slate-200 hover:border-orange-400 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all overflow-hidden p-1"
-                  >
-                    <img
-                      src={`/placeholder-thumb-${i}.jpg`}
-                      alt={`View ${i}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
               </div>
             </div>
           </div>
 
-          {/* RIGHT: INFO COLUMN */}
-          <div className="lg:col-span-5 xl:col-span-4 space-y-6">
-            <section className="border-b border-slate-100 pb-6">
-              <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 leading-tight">
+          {/* RIGHT: DETAILS */}
+          <div className="lg:col-span-6 space-y-10">
+            <section className="space-y-6">
+              <div className="flex items-center gap-3">
+                <span className="h-[2px] w-8 bg-red-600"></span>
+                <span className="text-red-600 text-xs font-black uppercase tracking-[0.3em]">
+                  {product.category}
+                </span>
+              </div>
+
+              <h1 className="text-5xl md:text-6xl font-black text-slate-950 leading-[0.85] tracking-tighter uppercase italic">
                 {product.name}
               </h1>
-              <p className="text-blue-600 text-sm font-medium mt-1 hover:underline cursor-pointer">
-                Visit the Industrial Store
-              </p>
 
-              <div className="flex items-center gap-2 mt-2">
-                <div className="flex text-orange-400 text-sm">★★★★★</div>
-                <span className="text-blue-600 text-sm hover:underline cursor-pointer">
-                  84 ratings
-                </span>
-              </div>
-            </section>
-
-            <section>
-              <div className="flex items-baseline gap-1">
-                <span className="text-sm self-start mt-1">$</span>
-                <span className="text-3xl font-medium text-slate-900">
-                  4,999
-                </span>
-                <span className="text-sm font-medium text-slate-900">00</span>
-              </div>
-              <p className="text-slate-700 text-sm mt-4 leading-relaxed">
+              <p className="text-slate-500 text-lg leading-relaxed font-medium max-w-prose border-l-4 border-slate-100 pl-6">
                 {product.description}
               </p>
             </section>
 
-            {/* Technical Specs Table */}
-            <section className="pt-4 border-t border-slate-100">
-              <h2 className="text-sm font-bold text-slate-900 mb-3">
-                Product Specifications
+            {/* SPECS LIST */}
+            <section className="pt-8 border-t border-slate-100">
+              <h2 className="text-[10px] font-black text-slate-950 mb-8 uppercase tracking-[0.3em] flex items-center gap-2">
+                <FileText className="w-4 h-4 text-red-600" />
+                Machine Details
               </h2>
-              <table className="w-full text-sm">
-                <tbody>
-                  {product.specs.map((spec, index) => (
-                    <tr
-                      key={index}
-                      className="border-b border-slate-50 last:border-0"
-                    >
-                      <td className="py-2 pr-4 font-bold text-slate-700 w-1/3">
-                        {spec.label}
-                      </td>
-                      <td className="py-2 text-slate-600">{spec.value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="grid grid-cols-1">
+                {product.specs.map((spec, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between py-5 border-b border-slate-50 last:border-0 group"
+                  >
+                    <span className="font-bold text-slate-400 uppercase text-[10px] tracking-widest group-hover:text-red-600 transition-colors">
+                      {spec.label}
+                    </span>
+                    <span className="text-slate-950 font-black italic uppercase text-sm">
+                      {spec.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </section>
 
-            {/* Action Card */}
-            <section className="p-6 border border-slate-300 rounded-xl space-y-4 shadow-sm bg-slate-50/30">
-              <div className="text-green-700 font-bold text-lg">In Stock</div>
+            {/* CONTACT CARD */}
+            <section className="relative p-10 border-[3px] border-slate-950 rounded-[3rem] bg-white shadow-[12px_12px_0px_#dc2626] group mt-12">
+              <div className="relative space-y-8">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                      We are online
+                    </span>
+                  </div>
+                  <h3 className="text-3xl font-black text-slate-950 uppercase italic tracking-tighter leading-none">
+                    Need more <br /> info?
+                  </h3>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed max-w-[280px]">
+                    Send us a message to get prices and setup help for this
+                    machine.
+                  </p>
+                </div>
 
-              <div className="space-y-3">
-                <button className="w-full bg-[#FFD814] hover:bg-[#F7CA00] text-black py-2.5 rounded-full text-sm shadow-sm border border-[#FCD200]">
-                  Add to Cart
-                </button>
-                <button className="w-full bg-[#FFA41C] hover:bg-[#FF8F00] text-black py-2.5 rounded-full text-sm shadow-sm border border-[#FF9900]">
-                  Buy Now
-                </button>
-              </div>
-
-              <div className="text-[12px] text-slate-600 pt-2 space-y-1">
-                <p>
-                  Ships from <span className="text-slate-900 ml-2">Amazon</span>
-                </p>
-                <p>
-                  Sold by{" "}
-                  <span className="text-slate-900 ml-2">
-                    Verified Industrial
-                  </span>
-                </p>
-                <p className="text-blue-600 hover:underline cursor-pointer">
-                  Return policy: Eligible for Return
-                </p>
+                <div className="space-y-4">
+                  <a
+                    href={`https://wa.me/${whatsappNumber}?text=${whatsappMsg}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-5 rounded-full text-[11px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-xl active:scale-95"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-5 h-5 fill-current"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.067 2.877 1.215 3.076.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.438 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.03c0 2.122.554 4.197 1.604 6.013L0 24l6.135-1.61a11.74 11.74 0 005.911 1.586h.005c6.632 0 12.032-5.391 12.036-12.028a11.787 11.787 0 00-3.535-8.455z" />
+                    </svg>
+                    Chat on WhatsApp
+                  </a>
+                  <div className="flex justify-between items-center px-2">
+                    <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest">
+                      ID: {product.id}
+                    </span>
+                    <span className="text-[9px] text-red-600 font-black uppercase tracking-widest italic">
+                      Fast Reply
+                    </span>
+                  </div>
+                </div>
               </div>
             </section>
           </div>
