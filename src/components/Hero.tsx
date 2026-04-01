@@ -6,9 +6,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 // Assets - Importing from your src/assets folder
-import img1 from "../assets/bottle iron.jpg";
-import img2 from "../assets/buck vacuum table.jpg";
-import img3 from "../assets/thread sucking machine.jpg";
+
+import img1 from "../assets/bottle-iron.jpg";
+import img2 from "../assets/buck-vacuum-table.jpg";
+import img3 from "../assets/thread-sucking-machine.jpg";
 
 const slides = [
   { id: 1, name: "BOTTLE IRON", code: "SERIES-G", src: img1.src },
