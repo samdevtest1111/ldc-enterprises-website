@@ -25,9 +25,8 @@ export default function Navbar() {
         window.history.pushState(null, "", "/");
       }
     }
-    // 2. If we are on a different page (like /machinery)
-    // We let the default Link behavior happen, but you can also
-    // force a push if the browser is being stubborn.
+    // 2. If we are on a different page, the default Link href="/#id"
+    // will handle the navigation and native browser anchor jump.
   };
 
   return (
@@ -51,7 +50,6 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden lg:flex gap-8 text-sm font-bold text-slate-600">
-            {/* HOME: Scroll to top if already home */}
             <Link
               href="/"
               onClick={(e) => handleScroll(e, "top")}
@@ -67,7 +65,6 @@ export default function Navbar() {
               Our Products
             </Link>
 
-            {/* ABOUT */}
             <Link
               href="/#about"
               onClick={(e) => handleScroll(e, "about")}
@@ -76,7 +73,15 @@ export default function Navbar() {
               About Us
             </Link>
 
-            {/* CONTACT */}
+            {/* NEW QUALITY OPTION */}
+            <Link
+              href="/#quality"
+              onClick={(e) => handleScroll(e, "quality")}
+              className="hover:text-red-600 transition-colors"
+            >
+              Quality
+            </Link>
+
             <Link
               href="/#contact"
               onClick={(e) => handleScroll(e, "contact")}

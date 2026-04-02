@@ -15,9 +15,46 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LDC Enterprises | Precision Steam & Machinery",
+  title: {
+    default:
+      "LDC Enterprises | Industrial Steam Boilers & Garment Machinery Mumbai",
+    template: "%s | LDC Enterprises",
+  },
   description:
-    "High-performance industrial steam generation and garment machinery solutions.",
+    "India's leading manufacturer of high-pressure steam boilers, vacuum tables, diesel boilers, and industrial garment finishing machinery. Custom engineering and machine parts in Mumbai.",
+  keywords: [
+    "Industrial Steam Boilers Mumbai",
+    "Garment Finishing Machinery India",
+    "Vacuum Ironing Tables",
+    "Diesel Fired Boilers",
+    "Steam Iron Parts",
+    "Industrial Laundry Machines",
+    "LDC Enterprises Asalfa",
+    "Boiler Manufacturer Mumbai",
+    "Custom Industrial Machinery",
+  ],
+  metadataBase: new URL("https://ldcenterprises.com"), // Replace with actual domain later
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "LDC Enterprises | Industrial Engineering Excellence",
+    description:
+      "Heavy-duty machinery and custom steam solutions for modern production lines.",
+    url: "/",
+    siteName: "LDC Enterprises",
+    locale: "en_IN",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
   icons: {
     icon: "/favicon.ico",
   },
@@ -29,12 +66,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col font-sans text-slate-900`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col font-sans text-slate-900 bg-white`}
       >
         <Navbar />
-        {/* flex-grow ensures the footer stays at the bottom on short pages */}
         <main className="grow">{children}</main>
         <Footer />
       </body>
