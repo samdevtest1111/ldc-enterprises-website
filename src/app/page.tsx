@@ -162,28 +162,54 @@ export default function Home() {
       {/* 3. ABOUT US SECTION */}
       <section
         id="about"
-        className="py-32 px-6 bg-slate-950 text-white scroll-mt-20 relative overflow-hidden"
+        className="py-16 md:py-20 px-6 bg-slate-950 text-white scroll-mt-20 relative overflow-hidden"
       >
+        {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:30px_30px]" />
+
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center relative z-10"
+          className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10"
         >
-          <div className="aspect-square bg-white/5 rounded-3xl flex items-center justify-center text-white/10 italic border border-white/10 overflow-hidden relative group">
-            <div className="absolute inset-0 bg-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="font-black text-4xl uppercase tracking-tighter opacity-20">
-              LDC Factory
-            </span>
+          {/* MAP CONTAINER */}
+          <div className="relative aspect-square md:aspect-video lg:aspect-square bg-white/5 rounded-[2.5rem] border border-white/10 overflow-hidden group">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d63136.21666047223!2d72.84833576677246!3d19.07682703172833!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9318586c26b%3A0x4b3ea2ac558ab786!2sLDC%20ENTERPRISES!5e0!3m2!1sen!2sin!4v1775129440951!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }} // Removed all filters for the natural look
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="relative z-0"
+            />
+
+            {/* Optional Label Overlay - kept it clean and minimal */}
+            <div className="absolute bottom-6 left-6 z-20 pointer-events-none">
+              <p className="text-[10px] font-black text-white uppercase tracking-[0.3em] bg-slate-950/90 px-4 py-2 rounded-full border border-white/20 backdrop-blur-md shadow-2xl">
+                LDC Factory Location
+              </p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-5xl md:text-6xl font-black text-white mt-6 mb-8 leading-[0.9] tracking-tighter uppercase">
+
+          {/* CONTENT */}
+          <div className="py-4">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="h-[2px] w-8 bg-red-600"></span>
+              <span className="text-red-600 text-[10px] font-black uppercase tracking-[0.3em]">
+                Industrial Authority
+              </span>
+            </div>
+
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[0.9] tracking-tighter uppercase mb-6">
               Engineering <br />{" "}
               <span className="text-white/30 italic">Excellence.</span>
             </h2>
-            <p className="text-white/60 text-lg leading-relaxed font-medium mb-8">
+
+            <p className="text-white/60 text-base md:text-lg leading-relaxed font-medium max-w-md border-l-2 border-white/10 pl-6">
               LDC Enterprises stands at the forefront of industrial steam
               technology, ensuring your factory operates at peak efficiency with
               minimal downtime.
@@ -207,12 +233,18 @@ export default function Home() {
             Scale Your <br /> Production Now.
           </h2>
           <div className="flex flex-col md:flex-row justify-center gap-6 mt-12">
-            <button className="bg-red-600 text-white px-12 py-5 rounded-full font-black text-sm tracking-widest hover:bg-slate-950 transition-all uppercase shadow-xl hover:shadow-red-600/20">
+            <a
+              href="mailto:contact@ldcenterprises.com" // Replace with your actual email address
+              className="bg-red-600 cursor-pointer text-white px-12 py-5 rounded-full font-black text-sm tracking-widest hover:bg-slate-950 transition-all uppercase shadow-xl hover:shadow-red-600/20 inline-block"
+            >
               Email Us
-            </button>
-            <button className="bg-white text-slate-950 border-2 border-slate-950 px-12 py-5 rounded-full font-black text-sm tracking-widest hover:bg-slate-50 transition-all uppercase">
+            </a>
+            <a
+              href="tel:+1234567890" // Replace with your actual phone number
+              className="bg-white cursor-pointer text-slate-950 border-2 border-slate-950 px-12 py-5 rounded-full font-black text-sm tracking-widest hover:bg-slate-50 transition-all uppercase inline-block"
+            >
               Call Support
-            </button>
+            </a>
           </div>
         </motion.div>
       </section>

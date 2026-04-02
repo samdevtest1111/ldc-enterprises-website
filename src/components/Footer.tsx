@@ -39,8 +39,8 @@ export default function Footer() {
         <div>
           <h4 className="font-bold text-slate-900 mb-4">Contact</h4>
           <ul className="space-y-2 text-sm text-slate-600">
-            <li>sales@ldcenterprises.com</li>
-            <li>+1 (234) 567-890</li>
+            <li>ldcenterprises@outlook.com</li>
+            <li>9967030123</li>
           </ul>
         </div>
       </div>
