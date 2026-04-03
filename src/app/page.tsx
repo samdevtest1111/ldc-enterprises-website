@@ -65,54 +65,53 @@ export default function Home() {
       <Hero />
 
       {/* 2. FEATURED MACHINERY GLIMPSE */}
-      <section className="py-24 px-6 max-w-7xl mx-auto overflow-hidden">
+      <section className="py-12 md:py-24 px-4 md:px-6 max-w-7xl mx-auto overflow-hidden">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }} // Fixed: Added once: true
+          viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
-          className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6"
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-16 gap-6"
         >
           <div className="max-w-xl">
             <div className="flex items-center gap-2 mb-4">
               <span className="h-[2px] w-6 bg-red-600"></span>
-              <span className="text-red-600 font-bold text-xs uppercase tracking-widest">
+              <span className="text-red-600 font-bold text-[10px] md:text-xs uppercase tracking-widest">
                 Selected Hardware
               </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-slate-950 tracking-tighter italic uppercase leading-[0.9]">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-950 tracking-tighter italic uppercase leading-[0.9]">
               Featured <br /> Machinery
             </h2>
           </div>
           <Link
             href="/machinery"
-            className="text-slate-950 font-black hover:text-red-600 transition-colors flex items-center gap-2 border-b-2 border-slate-950 pb-1 uppercase text-sm tracking-widest shrink-0"
+            className="text-slate-950 font-black hover:text-red-600 transition-colors flex items-center gap-2 border-b-2 border-slate-950 pb-1 uppercase text-xs md:text-sm tracking-widest shrink-0"
           >
             Full Catalog →
           </Link>
         </motion.div>
 
         <div className="relative group/container">
+          {/* Desktop Buttons - Hidden on Mobile */}
           <button
             onClick={() => scroll("left")}
-            aria-label="Scroll Left"
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-white/80 backdrop-blur-md border border-slate-100 shadow-xl rounded-r-2xl cursor-pointer transition-all duration-300 ${
+            className={`hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-white/80 backdrop-blur-md border border-slate-100 shadow-xl rounded-r-2xl cursor-pointer transition-all duration-300 ${
               showLeft
                 ? "opacity-100 translate-x-0"
-                : "opacity-0 -translate-x-full pointer-events-none"
-            } hover:bg-red-600 hover:text-white hover:border-red-600`}
+                : "opacity-0 -translate-x-full"
+            } hover:bg-red-600 hover:text-white`}
           >
             <ChevronLeft size={32} strokeWidth={3} />
           </button>
 
           <button
             onClick={() => scroll("right")}
-            aria-label="Scroll Right"
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-white/80 backdrop-blur-md border border-slate-100 shadow-xl rounded-l-2xl cursor-pointer transition-all duration-300 ${
+            className={`hidden md:block absolute right-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-white/80 backdrop-blur-md border border-slate-100 shadow-xl rounded-l-2xl cursor-pointer transition-all duration-300 ${
               showRight
                 ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-full pointer-events-none"
-            } hover:bg-red-600 hover:text-white hover:border-red-600`}
+                : "opacity-0 translate-x-full"
+            } hover:bg-red-600 hover:text-white`}
           >
             <ChevronRight size={32} strokeWidth={3} />
           </button>
@@ -121,12 +120,11 @@ export default function Home() {
             ref={scrollRef}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }} // Fixed: Added once: true
+            viewport={{ once: true, margin: "-50px" }}
             variants={staggerContainer}
-            className="flex gap-8 overflow-x-auto pb-10 snap-x snap-mandatory scrollbar-hide"
+            className="flex gap-4 md:gap-8 overflow-x-auto pb-10 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {/* UPDATED: Removed .slice(0, 6) to show all products */}
             {products.map((product) => (
               <motion.div
                 key={product.id}
@@ -135,29 +133,30 @@ export default function Home() {
               >
                 <Link
                   href={`/machinery/${product.id}`}
-                  className="min-w-[85vw] md:min-w-[380px] group relative aspect-[4/5] bg-slate-50 rounded-2xl border border-slate-100 flex flex-col items-center justify-center p-8 overflow-hidden transition-all hover:border-red-600/20 hover:shadow-2xl block"
+                  className="min-w-[85vw] md:min-w-[380px] group relative aspect-[4/5] bg-slate-50 rounded-2xl border border-slate-100 flex flex-col items-center justify-center p-4 md:p-8 overflow-hidden transition-all hover:border-red-600/20 hover:shadow-2xl block"
                 >
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-100/50 group-hover:to-red-50/30 transition-colors" />
 
-                  <div className="relative z-10 w-full h-80 bg-white rounded-3xl shadow-sm border border-slate-100 mb-8 group-hover:scale-105 transition-transform duration-500 overflow-hidden flex items-center justify-center">
+                  {/* FIXED: Responsive height and smaller margins for mobile */}
+                  <div className="relative z-10 w-full h-56 md:h-80 bg-white rounded-2xl shadow-sm border border-slate-100 mb-4 md:mb-8 group-hover:scale-105 transition-transform duration-500 overflow-hidden flex items-center justify-center">
                     <Image
                       src={product.image}
                       alt={product.name}
                       width={400}
                       height={400}
-                      className="w-full h-full object-contain p-4 mix-blend-multiply rounded-3xl"
+                      className="w-full h-full object-contain p-2 md:p-4 mix-blend-multiply rounded-2xl"
                       priority={product.id === products[0].id}
                     />
                   </div>
 
                   <div className="relative z-10 text-center">
-                    <p className="text-red-600 font-black text-[10px] uppercase tracking-widest mb-2">
+                    <p className="text-red-600 font-black text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">
                       {product.category || "Industrial Class"}
                     </p>
-                    <h3 className="text-2xl font-black text-slate-900 tracking-tighter uppercase group-hover:text-red-600 transition-colors">
+                    <h3 className="text-lg md:text-2xl font-black text-slate-900 tracking-tighter uppercase group-hover:text-red-600 transition-colors leading-tight">
                       {product.name}
                     </h3>
-                    <span className="inline-block mt-4 text-xs font-bold text-slate-400 group-hover:text-slate-950 transition-colors underline underline-offset-4">
+                    <span className="inline-block mt-2 md:mt-4 text-[10px] md:text-xs font-bold text-slate-400 group-hover:text-slate-950 transition-colors underline underline-offset-4">
                       VIEW SPECS
                     </span>
                   </div>
@@ -236,32 +235,33 @@ export default function Home() {
       {/* 4. QUALITY & DURABILITY SECTION */}
       <section
         id="quality"
-        className="py-24 px-6 bg-slate-50 overflow-hidden border-y border-slate-100"
+        className="py-12 md:py-24 px-4 md:px-6 bg-slate-50 overflow-hidden border-y border-slate-100"
       >
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} // Fixed: Added once: true
-            className="text-center mb-16 max-w-xl mx-auto"
+            viewport={{ once: true }}
+            className="text-center mb-10 md:mb-16 max-w-xl mx-auto"
           >
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="h-[2px] w-6 bg-red-600"></span>
-              <span className="text-red-600 font-bold text-xs uppercase tracking-widest">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <span className="h-[2px] w-4 md:w-6 bg-red-600"></span>
+              <span className="text-red-600 font-bold text-[10px] md:text-xs uppercase tracking-widest">
                 Our Promise
               </span>
-              <span className="h-[2px] w-6 bg-red-600"></span>
+              <span className="h-[2px] w-4 md:w-6 bg-red-600"></span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-slate-950 tracking-tighter uppercase italic leading-[0.9] mb-6">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-950 tracking-tighter uppercase italic leading-[0.9] mb-4 md:mb-6">
               Quality <br /> You Can Trust.
             </h2>
-            <p className="text-slate-600 text-base font-medium leading-relaxed">
+            <p className="text-slate-600 text-sm md:text-base font-medium leading-relaxed">
               We build hardworking machines for hardworking factories. Durable,
               safe, and easy to maintain.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+          {/* Changed grid-cols-2 to grid-cols-1 for small mobile */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {[
               {
                 icon: "🛡️",
@@ -286,17 +286,20 @@ export default function Home() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="p-8 border border-slate-200 rounded-[2rem] bg-white shadow-sm hover:border-red-600/30 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center"
+                className="p-6 md:p-8 border border-slate-200 rounded-[1.5rem] md:rounded-[2rem] bg-white shadow-sm hover:border-red-600/30 hover:shadow-xl transition-all duration-300 flex flex-row sm:flex-col items-center sm:text-center gap-5 sm:gap-0"
               >
-                <div className="text-5xl mb-6 bg-slate-100 w-20 h-20 flex items-center justify-center rounded-3xl border border-slate-200">
+                {/* Smaller icon container for mobile */}
+                <div className="text-3xl md:text-5xl md:mb-6 bg-slate-100 w-14 h-14 md:w-20 md:h-20 shrink-0 flex items-center justify-center rounded-2xl border border-slate-200">
                   {item.icon}
                 </div>
-                <h4 className="text-slate-950 font-black text-lg uppercase tracking-tight mb-2 italic">
-                  {item.title}
-                </h4>
-                <p className="text-slate-600 text-sm font-medium leading-relaxed">
-                  {item.desc}
-                </p>
+                <div>
+                  <h4 className="text-slate-950 font-black text-base md:text-lg uppercase tracking-tight mb-1 md:mb-2 italic">
+                    {item.title}
+                  </h4>
+                  <p className="text-slate-600 text-[12px] md:text-sm font-medium leading-tight md:leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
