@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next"; // Added Viewport type
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -15,7 +15,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// 1. Separate Viewport for Next.js 14/15 standards
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -24,6 +23,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.ldcenterprises.in"),
   title: {
     default:
       "LDC Enterprises | Industrial Steam Boilers & Garment Machinery Mumbai",
@@ -37,7 +37,10 @@ export const metadata: Metadata = {
     "LDC Enterprises Asalfa",
     "Boiler Manufacturer Mumbai",
   ],
-  metadataBase: new URL("https://ldcenterprises.com"),
+  icons: {
+    icon: [{ url: "/favicon.ico" }, { url: "/icon.png", type: "image/png" }],
+    apple: [{ url: "/apple-icon.png" }],
+  },
   alternates: {
     canonical: "/",
   },
@@ -49,6 +52,14 @@ export const metadata: Metadata = {
     siteName: "LDC Enterprises",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.jpg", // Make sure this exists in your public folder for social sharing
+        width: 1200,
+        height: 630,
+        alt: "LDC Enterprises Industrial Machinery",
+      },
+    ],
   },
   robots: {
     index: true,
@@ -67,8 +78,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // 2. Added data-scroll-behavior to fix the warning
-    // 3. Added suppressHydrationWarning to prevent extension conflicts
     <html
       lang="en-IN"
       className="h-full antialiased scroll-smooth"
@@ -79,7 +88,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col font-sans text-slate-900 bg-white`}
       >
         <Navbar />
-        {/* grow ensures footer stays at bottom on short pages */}
         <main className="grow w-full">{children}</main>
         <FloatingContact />
         <Footer />
