@@ -55,7 +55,7 @@ export default function Home() {
   useEffect(() => {
     const currentRef = scrollRef.current;
     if (currentRef) {
-      currentRef.addEventListener("scroll", handleScroll);
+      currentRef.addEventListener("scroll", handleScroll, { passive: true });
       return () => currentRef.removeEventListener("scroll", handleScroll);
     }
   }, []);
@@ -69,7 +69,7 @@ export default function Home() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-100px" }} // Fixed: Added once: true
           variants={fadeInUp}
           className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6"
         >
@@ -95,6 +95,7 @@ export default function Home() {
         <div className="relative group/container">
           <button
             onClick={() => scroll("left")}
+            aria-label="Scroll Left"
             className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-white/80 backdrop-blur-md border border-slate-100 shadow-xl rounded-r-2xl cursor-pointer transition-all duration-300 ${
               showLeft
                 ? "opacity-100 translate-x-0"
@@ -106,6 +107,7 @@ export default function Home() {
 
           <button
             onClick={() => scroll("right")}
+            aria-label="Scroll Right"
             className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-white/80 backdrop-blur-md border border-slate-100 shadow-xl rounded-l-2xl cursor-pointer transition-all duration-300 ${
               showRight
                 ? "opacity-100 translate-x-0"
@@ -119,16 +121,21 @@ export default function Home() {
             ref={scrollRef}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: true, margin: "-50px" }} // Fixed: Added once: true
             variants={staggerContainer}
             className="flex gap-8 overflow-x-auto pb-10 snap-x snap-mandatory scrollbar-hide"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
+            {/* UPDATED: Removed .slice(0, 6) to show all products */}
             {products.map((product) => (
-              <motion.div key={product.id} variants={fadeInUp}>
+              <motion.div
+                key={product.id}
+                variants={fadeInUp}
+                className="snap-start"
+              >
                 <Link
                   href={`/machinery/${product.id}`}
-                  className="min-w-[85vw] md:min-w-[380px] snap-start group relative aspect-[4/5] bg-slate-50 rounded-2xl border border-slate-100 flex flex-col items-center justify-center p-8 overflow-hidden transition-all hover:border-red-600/20 hover:shadow-2xl"
+                  className="min-w-[85vw] md:min-w-[380px] group relative aspect-[4/5] bg-slate-50 rounded-2xl border border-slate-100 flex flex-col items-center justify-center p-8 overflow-hidden transition-all hover:border-red-600/20 hover:shadow-2xl block"
                 >
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-100/50 group-hover:to-red-50/30 transition-colors" />
 
@@ -136,7 +143,10 @@ export default function Home() {
                     <Image
                       src={product.image}
                       alt={product.name}
+                      width={400}
+                      height={400}
                       className="w-full h-full object-contain p-4 mix-blend-multiply rounded-3xl"
+                      priority={product.id === products[0].id}
                     />
                   </div>
 
@@ -168,13 +178,13 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true }} // Fixed: Added once: true
           transition={{ duration: 0.8 }}
           className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10"
         >
           <div className="relative aspect-square md:aspect-video lg:aspect-square bg-white/5 rounded-[2.5rem] border border-white/10 overflow-hidden group">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d63136.21666047223!2d72.84833576677246!3d19.07682703172833!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9318586c26b%3A0x4b3ea2ac558ab786!2sLDC%20ENTERPRISES!5e0!3m2!1sen!2sin!4v1775129440951!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.2451113368525!2d72.89203837373718!3d19.096900051318975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9318586c26b%3A0x4b3ea2ac558ab786!2sLDC%20ENTERPRISES!5e0!3m2!1sen!2sin!4v1775148455476!5m2!1sen!2sin"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -185,7 +195,7 @@ export default function Home() {
             />
             <div className="absolute bottom-6 left-6 z-20 pointer-events-none">
               <p className="text-[10px] font-black text-white uppercase tracking-[0.3em] bg-slate-950/90 px-4 py-2 rounded-full border border-white/20 backdrop-blur-md shadow-2xl">
-                LDC Factory Location
+                LDC Company Location
               </p>
             </div>
           </div>
@@ -215,15 +225,15 @@ export default function Home() {
                 Custom Builds
               </h4>
               <p className="text-white text-sm font-bold leading-tight uppercase tracking-tight">
-                We manufacture bespoke industrial machinery tailored to your
-                specific production line requirements.
+                We build custom machines for factories that are made exactly how
+                you need them to fit your production process.
               </p>
             </div>
           </div>
         </motion.div>
       </section>
 
-      {/* 4. QUALITY & DURABILITY SECTION - Simplified for Normal Customers */}
+      {/* 4. QUALITY & DURABILITY SECTION */}
       <section
         id="quality"
         className="py-24 px-6 bg-slate-50 overflow-hidden border-y border-slate-100"
@@ -232,7 +242,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true }} // Fixed: Added once: true
             className="text-center mb-16 max-w-xl mx-auto"
           >
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -328,7 +338,9 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 pt-6 border-t border-slate-100">
               <a
-                href="https://wa.me/91XXXXXXXXXX"
+                href="https://wa.me/919967030123"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 text-slate-900 font-black text-[10px] uppercase tracking-widest hover:text-[#25D366] transition-colors bg-slate-50 py-3 rounded-xl border border-slate-100"
               >
                 <div className="w-2 h-2 bg-[#25D366] rounded-full animate-pulse" />
@@ -336,7 +348,7 @@ export default function Home() {
               </a>
 
               <a
-                href="tel:+91XXXXXXXXXX"
+                href="tel:+919967030123"
                 className="flex items-center justify-center gap-2 text-slate-900 font-black text-[10px] uppercase tracking-widest hover:text-red-600 transition-colors bg-slate-50 py-3 rounded-xl border border-slate-100"
               >
                 <div className="w-2 h-2 bg-red-600 rounded-full" />

@@ -9,12 +9,14 @@ export default function MachineryPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredProducts = products.filter((product) => {
+    // Added .trim() to handle accidental spaces in search
+    const query = searchQuery.toLowerCase().trim();
     const searchContent =
       `${product.name} ${product.category} ${product.description}`.toLowerCase();
-    return searchContent.includes(searchQuery.toLowerCase());
+    return searchContent.includes(query);
   });
 
-  // SEO: Create JSON-LD for the Product List
+  // SEO: Structured Data
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -22,13 +24,13 @@ export default function MachineryPage() {
       "@type": "ListItem",
       position: index + 1,
       name: product.name,
-      url: `https://ldcenterprises.com/machinery/${product.id}`,
+      // Using relative paths is safer for structured data in Next.js
+      url: `/machinery/${product.id}`,
     })),
   };
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-16">
-      {/* Injecting Structured Data for Google Bot */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

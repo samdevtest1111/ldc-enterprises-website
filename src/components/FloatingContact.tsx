@@ -4,11 +4,11 @@ import { Phone } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function FloatingContact() {
-  const whatsappNumber = "91XXXXXXXXXX"; // Replace with real 10-digit number
-  const phoneNumber = "+91XXXXXXXXXX"; // Replace with real calling number
+  const whatsappNumber = "919967030123"; // Replace with real 10-digit number
+  const phoneNumber = "+919967030123"; // Replace with real calling number
 
   return (
-    <div className="fixed bottom-8 right-6 z-[100] flex flex-col gap-4">
+    <div className="fixed bottom-8 right-6 z-100 flex flex-col gap-4">
       {/* Official WhatsApp Floating Button - Green */}
       <motion.a
         initial={{ scale: 0, opacity: 0 }}

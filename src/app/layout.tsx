@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next"; // Added Viewport type
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -15,6 +15,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// 1. Separate Viewport for Next.js 14/15 standards
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#dc2626", // LDC Red
+};
+
 export const metadata: Metadata = {
   title: {
     default:
@@ -22,19 +30,14 @@ export const metadata: Metadata = {
     template: "%s | LDC Enterprises",
   },
   description:
-    "India's leading manufacturer of high-pressure steam boilers, vacuum tables, diesel boilers, and industrial garment finishing machinery. Custom engineering and machine parts in Mumbai.",
+    "India's leading manufacturer of high-pressure steam boilers, vacuum tables, and industrial garment finishing machinery. Custom engineering in Mumbai.",
   keywords: [
     "Industrial Steam Boilers Mumbai",
     "Garment Finishing Machinery India",
-    "Vacuum Ironing Tables",
-    "Diesel Fired Boilers",
-    "Steam Iron Parts",
-    "Industrial Laundry Machines",
     "LDC Enterprises Asalfa",
     "Boiler Manufacturer Mumbai",
-    "Custom Industrial Machinery",
   ],
-  metadataBase: new URL("https://ldcenterprises.com"), // Replace with actual domain later
+  metadataBase: new URL("https://ldcenterprises.com"),
   alternates: {
     canonical: "/",
   },
@@ -56,9 +59,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 export default function RootLayout({
@@ -67,12 +67,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased scroll-smooth">
+    // 2. Added data-scroll-behavior to fix the warning
+    // 3. Added suppressHydrationWarning to prevent extension conflicts
+    <html
+      lang="en-IN"
+      className="h-full antialiased scroll-smooth"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col font-sans text-slate-900 bg-white`}
       >
         <Navbar />
-        <main className="grow">{children}</main>
+        {/* grow ensures footer stays at bottom on short pages */}
+        <main className="grow w-full">{children}</main>
         <FloatingContact />
         <Footer />
       </body>

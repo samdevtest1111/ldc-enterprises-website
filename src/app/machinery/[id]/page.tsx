@@ -1,18 +1,44 @@
 import { products } from "@/data/products";
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { ArrowLeft, FileText } from "lucide-react";
+import { Metadata } from "next";
 
-export default async function ProductDetailPage({
-  params,
-}: {
+interface Props {
   params: Promise<{ id: string }>;
-}) {
+}
+
+// SEO: Dynamic Metadata for better social sharing and Google ranking
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
+  const product = products.find((p) => p.id === id);
 
-  const product = products.find((p) => p.id === id) || products[0];
+  if (!product) return { title: "Product Not Found | LDC Enterprises" };
 
-  const whatsappNumber = "YOUR_PHONE_NUMBER";
+  return {
+    title: `${product.name} | LDC Enterprises Mumbai`,
+    description: product.description,
+  };
+}
+
+// PERFORMANCE: Pre-render all product pages at build time
+export async function generateStaticParams() {
+  return products.map((product) => ({
+    id: product.id,
+  }));
+}
+
+export default async function ProductDetailPage({ params }: Props) {
+  const { id } = await params;
+  const product = products.find((p) => p.id === id);
+
+  // If the product doesn't exist, trigger the 404 page
+  if (!product) {
+    notFound();
+  }
+
+  const whatsappNumber = "919967030123"; // Replace with your actual number
   const whatsappMsg = encodeURIComponent(
     `Hello, I want to know more about the ${product.name} (ID: ${product.id}).`,
   );
@@ -30,7 +56,7 @@ export default async function ProductDetailPage({
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-          {/* LEFT: PHOTO ONLY */}
+          {/* LEFT: PHOTO SECTION */}
           <div className="lg:col-span-6">
             <div className="sticky top-24">
               <div className="relative aspect-square bg-slate-50 rounded-[2.5rem] border border-slate-100 flex items-center justify-center overflow-hidden shadow-sm">
@@ -45,7 +71,7 @@ export default async function ProductDetailPage({
             </div>
           </div>
 
-          {/* RIGHT: DETAILS */}
+          {/* RIGHT: DETAILS SECTION */}
           <div className="lg:col-span-6 space-y-10">
             <section className="space-y-6">
               <div className="flex items-center gap-3">
@@ -101,8 +127,8 @@ export default async function ProductDetailPage({
                     Need more <br /> info?
                   </h3>
                   <p className="text-slate-500 text-sm font-medium leading-relaxed max-w-[280px]">
-                    Send us a message to get prices and setup help for this
-                    machine.
+                    Send us a message to get current pricing and installation
+                    details.
                   </p>
                 </div>
 
