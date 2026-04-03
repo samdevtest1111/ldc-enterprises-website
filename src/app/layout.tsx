@@ -38,8 +38,11 @@ export const metadata: Metadata = {
     "Boiler Manufacturer Mumbai",
   ],
   icons: {
-    icon: [{ url: "/favicon.ico" }, { url: "/icon.png", type: "image/png" }],
-    apple: [{ url: "/apple-icon.png" }],
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/ldc-logo.png", type: "image/png" },
+    ],
+    apple: [{ url: "/ldc-logo.png" }],
   },
   alternates: {
     canonical: "/",

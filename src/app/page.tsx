@@ -333,8 +333,8 @@ export default function Home() {
 
           <div className="flex flex-col gap-4 max-w-md mx-auto">
             <a
-              href="mailto:contact@ldcenterprises.com?subject=Machinery%20Inquiry"
-              className="bg-red-600 text-white py-4 rounded-2xl font-black text-xs tracking-widest hover:bg-slate-950 transition-all uppercase shadow-lg"
+              href="mailto:ldcenterprises@outlook.com?subject=Machinery%20Inquiry"
+              className="bg-red-600 text-white py-4 rounded-2xl font-black text-xs tracking-widest hover:bg-slate-950 transition-all uppercase shadow-lg text-center inline-block w-full"
             >
               Send Requirement Email
             </a>
