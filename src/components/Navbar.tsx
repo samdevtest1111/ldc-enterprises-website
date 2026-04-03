@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image"; // Added this import
+import Image from "next/image";
 import { Menu, Search, X, ChevronRight } from "lucide-react";
 import SearchSystem from "./SearchSystem";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import logoImg from "../assets/ldc-logo.png";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -60,10 +59,9 @@ export default function Navbar() {
             href="/"
             className="flex items-center gap-3 group shrink-0 bg-white"
           >
-            {/* LOGO IMAGE REPLACED BOX */}
             <div className="relative w-10 h-10 flex items-center justify-center transition-transform group-hover:scale-105">
               <Image
-                src={logoImg} // Use the imported variable name, NOT a string
+                src="/ldc-logo.png" // Updated to reference public folder path
                 alt="LDC Logo"
                 width={40}
                 height={40}
