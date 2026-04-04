@@ -35,12 +35,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-2"
-          >
-            <span className="h-[3px] w-8 bg-red-600"></span>
-            <p className="text-[10px] font-black tracking-[0.5em] text-red-600 uppercase">
-              Est. 2026 / Industrial
-            </p>
-          </motion.div>
+          ></motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
