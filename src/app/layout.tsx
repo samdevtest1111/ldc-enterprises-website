@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico" },
-      { url: "/ldc-logo.png", type: "image/png" },
+      { url: "/ldc-logo1.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/ldc-logo.png" }],
+    apple: [{ url: "/ldc-logo1.png" }],
   },
   alternates: {
     canonical: "/",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.jpg", // Make sure this exists in your public folder for social sharing
+        url: "/og-image.png", // Ensure this exists in public/
         width: 1200,
         height: 630,
         alt: "LDC Enterprises Industrial Machinery",
