@@ -201,22 +201,6 @@ export default function Navbar() {
                   </motion.div>
                 ))}
               </div>
-              <div className="p-8 bg-slate-50 mt-auto">
-                <div className="grid grid-cols-2 gap-3">
-                  <a
-                    href="tel:+91"
-                    className="flex items-center justify-center bg-white border border-slate-200 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-900"
-                  >
-                    Call
-                  </a>
-                  <a
-                    href="https://wa.me/91"
-                    className="flex items-center justify-center bg-[#25D366] text-white py-3 rounded-xl text-[10px] font-black uppercase tracking-widest"
-                  >
-                    WhatsApp
-                  </a>
-                </div>
-              </div>
             </motion.div>
           </>
         )}
