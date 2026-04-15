@@ -39,8 +39,9 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [
-      { url: "/favicon.ico" },
       { url: "/ldc-logo1.png", sizes: "512x512", type: "image/png" },
+      // Only keep the favicon line if you actually replaced the file in /public
+      // { url: "/favicon.ico" },
     ],
     apple: [{ url: "/ldc-logo1.png" }],
   },
