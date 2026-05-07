@@ -43,6 +43,7 @@ export default function SearchSystem() {
           value={query}
           onFocus={() => setIsOpen(true)}
           onChange={(e) => setQuery(e.target.value)}
+          suppressHydrationWarning // Add this line
           className="w-full bg-slate-50 border border-slate-200 rounded-full py-2 pl-10 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-brand-purple/20 focus:border-brand-purple transition-all"
         />
         {query && (
